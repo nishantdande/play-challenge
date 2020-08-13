@@ -4,6 +4,8 @@ import com.play.BuildConfig
 import com.play.data.api.ApiHelper
 import com.play.data.api.ApiHelperImpl
 import com.play.data.api.ApiService
+import com.play.data.perfs.AppPreferencesImpl
+import com.play.data.perfs.PreferencesHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,5 +61,9 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
+
+    @Provides
+    @Singleton
+    fun providePreferencesHelper(preferencesHelper: AppPreferencesImpl): PreferencesHelper = preferencesHelper
 
 }

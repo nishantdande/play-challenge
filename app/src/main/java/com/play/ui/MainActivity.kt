@@ -1,26 +1,23 @@
 package com.play.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.mindorks.framework.mvvm.utils.Status
 import com.play.R
+import com.play.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val mainViewModel : MainViewModel by viewModels()
 
     private lateinit var mainAdapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main);
 
@@ -31,5 +28,13 @@ class MainActivity : AppCompatActivity() {
         feed_view_pager.currentItem = 0
         feed_view_pager.isUserInputEnabled = false
 
+        changeTheme(mainViewModel.theme())
+    }
+
+    override
+    fun onBackPressed() {
+        if (feed_view_pager.currentItem > 0)
+            feed_view_pager.currentItem = feed_view_pager.currentItem - 1
+        else super.onBackPressed()
     }
 }

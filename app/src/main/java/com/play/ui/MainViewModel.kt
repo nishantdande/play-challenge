@@ -34,4 +34,8 @@ class MainViewModel @ViewModelInject constructor(
             } else _users.postValue(Resource.error("No internet connection", null))
         }
     }
+
+    fun theme() : String{
+        return apiRepository.getTheme();
+    }
 }
