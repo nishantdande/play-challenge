@@ -60,8 +60,8 @@ class LoginFragment : BaseFragment() {
                 requireActivity().feed_view_pager.currentItem = 1
          });
         loginBtn.setOnClickListener(View.OnClickListener {
-//            loginViewModel.login(getText(username), getText(password));
-            loginViewModel.login("test@worldofplay.in","Worldofplay@2020");
+            loginViewModel.login(getText(username), getText(password));
+//            loginViewModel.login("test@worldofplay.in","Worldofplay@2020");
         })
 
         usernameEditText.addTextChangedListener(mTextWatcher)
