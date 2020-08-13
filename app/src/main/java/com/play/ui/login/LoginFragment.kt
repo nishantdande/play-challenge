@@ -18,6 +18,7 @@ import com.play.ui.base.BaseFragment
 import com.play.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.reflect.KProperty
 
@@ -56,8 +57,20 @@ class LoginFragment : BaseFragment() {
         loginViewModel.getTheme()
 
         loginViewModel.loginUser.observe(viewLifecycleOwner, Observer {
-            if (it.data != null)
-                requireActivity().feed_view_pager.currentItem = 1
+            when (it.status) {
+                Status.SUCCESS -> {
+                    hideLoading()
+                    if (it.data != null)
+                        requireActivity().feed_view_pager.currentItem = 1
+                }
+                Status.LOADING -> {
+                    showLoading();
+                }
+                Status.ERROR -> {
+                    hideLoading()
+                    it.message?.let { it1 -> showSnackBar(it1) }
+                }
+            }
          });
         loginBtn.setOnClickListener(View.OnClickListener {
             loginViewModel.login(getText(username), getText(password));

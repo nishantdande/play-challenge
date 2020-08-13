@@ -1,11 +1,15 @@
 package com.play.ui.login
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.google.gson.Gson
 import com.play.utils.NetworkHelper
 import com.play.utils.Resource
 import com.play.data.model.LoginResponse
+import com.play.data.model.Story
 import com.play.data.repository.APIRepository
+import com.play.ui.error.APIError
 import com.play.utils.CommonUtils
 import kotlinx.coroutines.launch
 
@@ -31,10 +35,15 @@ class LoginViewModel @ViewModelInject constructor(
             _user.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
 
-                apiRepository.login(username, password).let {
-                    if (it.isSuccessful) {
-                        _user.postValue(Resource.success(it.body()))
-                    } else _user.postValue(Resource.error(it.errorBody().toString(), null))
+                try {
+                    apiRepository.login(username, password).let {
+                        if (it.isSuccessful) {
+                            _user.postValue(Resource.success(it.body()))
+                        } else _user.postValue(Resource.error(it.errorBody().toString(), null))
+                    }
+                } catch (e: Exception){
+                    val error = Gson().fromJson(e.message, APIError::class.java)
+                    _user.postValue(error.description?.let { Resource.error(it, null) })
                 }
 
             } else _user.postValue(Resource.error("No internet connection", null))
