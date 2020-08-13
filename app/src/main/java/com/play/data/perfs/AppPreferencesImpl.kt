@@ -2,6 +2,7 @@ package com.play.data.perfs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.play.PlayApplication
 import com.play.data.api.ApiService
 import com.play.data.model.Story
@@ -36,17 +37,23 @@ class AppPreferencesImpl @Inject constructor(private val apiService: ApiService)
         TODO("Not yet implemented")
     }
 
-    override fun setStory(story: Story?) {
-        TODO("Not yet implemented")
+    override fun setStory(story: Story) {
+        mPrefs!!.edit()
+            .putString(PREF_KEY_STORY, Gson().toJson(story))
+            .apply()
     }
 
     override fun getStory(): Story? {
-        TODO("Not yet implemented")
+        val story =
+            mPrefs!!.getString(PREF_KEY_STORY, null)
+        return if (story != null) {
+            Gson().fromJson(story, Story::class.java)
+        } else null;
     }
 
     override fun clearStory() {
-        TODO("Not yet implemented")
+        mPrefs!!.edit().putString(PREF_KEY_STORY, null)
+            .apply()
     }
-
 
 }

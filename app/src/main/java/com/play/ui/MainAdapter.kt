@@ -1,11 +1,8 @@
 package com.play.ui
 
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.mindorks.framework.mvvm.utils.Status
 import com.play.ui.dashboard.DashboardFragment
 import com.play.ui.detail.DetailFragment
 import com.play.ui.login.LoginFragment

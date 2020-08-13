@@ -1,6 +1,11 @@
 package com.play.utils
 
+import android.app.ProgressDialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import com.play.PlayApplication
+import com.play.R
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -34,6 +39,20 @@ class CommonUtils {
                 Pattern.compile(EMAIL_PATTERN)
             val matcher = pattern.matcher(email)
             return matcher.matches()
+        }
+
+        fun showLoadingDialog(context: Context?): ProgressDialog? {
+            val progressDialog = ProgressDialog(context)
+            progressDialog.show()
+            if (progressDialog.window != null) {
+                progressDialog.window!!
+                    .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            }
+            progressDialog.setContentView(R.layout.progress_dialog)
+            progressDialog.isIndeterminate = true
+            progressDialog.setCancelable(false)
+            progressDialog.setCanceledOnTouchOutside(false)
+            return progressDialog
         }
     }
 }

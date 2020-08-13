@@ -77,7 +77,7 @@
             android:textColor="@color/white"
             android:background="@drawable/btn_state"
             android:textAllCaps="false"
-            android:enabled="false"
+            android:enabled="true"
             android:text="@string/get_login" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

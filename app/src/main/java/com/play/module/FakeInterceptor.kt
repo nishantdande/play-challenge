@@ -12,7 +12,6 @@ class FakeInterceptor : Interceptor{
 
     private val mContentType = "application/json"
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.d("FakeInterceptor", "FakeInterceptor");
         var response: Response? = null
         val uri = Uri.parse(chain.request().url.toUri().toString())
 

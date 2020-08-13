@@ -11,7 +11,7 @@ import android.widget.CompoundButton
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputLayout
-import com.mindorks.framework.mvvm.utils.Status
+import com.play.utils.Status
 import com.play.PlayApplication
 import com.play.R
 import com.play.ui.base.BaseFragment

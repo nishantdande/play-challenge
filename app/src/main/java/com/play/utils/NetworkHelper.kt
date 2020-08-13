@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvvm.utils
+package com.play.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

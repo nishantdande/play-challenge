@@ -2,11 +2,13 @@ package com.play.ui.dashboard
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.mindorks.framework.mvvm.utils.NetworkHelper
-import com.mindorks.framework.mvvm.utils.Resource
-import com.play.data.model.LoginResponse
+import com.play.utils.NetworkHelper
+import com.play.utils.Resource
 import com.play.data.model.Story
 import com.play.data.repository.APIRepository
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class DashboardViewModel @ViewModelInject constructor(
@@ -25,14 +27,19 @@ class DashboardViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             _stories.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
-
-                apiRepository.getTopStories(count).let {
-                    if (it.isSuccessful) {
-                        _stories.postValue(Resource.success(it.body()))
-                    } else _stories.postValue(Resource.error(it.errorBody().toString(), null))
-                }
-
+            apiRepository.getTopStories(count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _stories.postValue(Resource.success(it))
+                }, {
+                    _stories.postValue(Resource.error(it.localizedMessage, null))
+                });
             } else _stories.postValue(Resource.error("No internet connection", null))
         }
+    }
+
+    fun storeStory(story: Story){
+        apiRepository.setStory(story);
     }
 }

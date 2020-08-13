@@ -2,8 +2,8 @@ package com.play.ui.login
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.mindorks.framework.mvvm.utils.NetworkHelper
-import com.mindorks.framework.mvvm.utils.Resource
+import com.play.utils.NetworkHelper
+import com.play.utils.Resource
 import com.play.data.model.LoginResponse
 import com.play.data.repository.APIRepository
 import com.play.utils.CommonUtils

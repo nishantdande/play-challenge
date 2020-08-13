@@ -12,7 +12,7 @@ interface PreferencesHelper {
 
     fun setAccessToken(accessToken: String?)
 
-    fun setStory(story: Story?)
+    fun setStory(story: Story)
 
     fun getStory(): Story?
 
