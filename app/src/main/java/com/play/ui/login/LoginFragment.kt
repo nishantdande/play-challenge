@@ -11,14 +11,13 @@ import android.widget.CompoundButton
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputLayout
-import com.play.utils.Status
 import com.play.PlayApplication
 import com.play.R
-import com.play.ui.base.BaseFragment
 import com.play.ui.MainActivity
+import com.play.ui.base.BaseFragment
+import com.play.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.reflect.KProperty
 
@@ -59,6 +58,7 @@ class LoginFragment : BaseFragment() {
         loginViewModel.loginUser.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+                    hideKeyboard()
                     hideLoading()
                     if (it.data != null)
                         requireActivity().feed_view_pager.currentItem = 1
@@ -96,6 +96,8 @@ class LoginFragment : BaseFragment() {
                 }
             }
         })
+
+        parentLayout.setOnClickListener(View.OnClickListener { hideKeyboard() })
     }
 
     private fun getText(textInputLayout: TextInputLayout): String {

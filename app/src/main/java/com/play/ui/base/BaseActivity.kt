@@ -1,7 +1,6 @@
 package com.play.ui.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
