@@ -5,7 +5,7 @@ import com.play.data.model.Story
 import com.play.data.perfs.PreferencesHelper
 import javax.inject.Inject
 
-class APIRepository @Inject constructor(private val apiHelper: ApiHelper,
+open class APIRepository @Inject constructor(private val apiHelper: ApiHelper,
                                         private val preferencesHelper: PreferencesHelper) {
 
     suspend fun getTopStories(count: Int) =  apiHelper.getTopStories(count);

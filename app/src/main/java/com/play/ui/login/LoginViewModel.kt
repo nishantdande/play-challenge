@@ -64,15 +64,15 @@ class LoginViewModel @ViewModelInject constructor(
     fun checkValidation(username: String, password: String){
         viewModelScope.launch{
             if (username.isEmpty()) {
-                _validation.postValue(Resource.error(com.play.R.string.empty_email, null));
+                _validation.postValue(Resource.error("Please provide a email.", null));
                 return@launch;
             }
             if (!CommonUtils.isEmailValid(username)) {
-                _validation.postValue(Resource.error(com.play.R.string.invalid_email, null));
+                _validation.postValue(Resource.error("Please provide a valid email.", null));
                 return@launch;
             }
             if (password == null || password.isEmpty()) {
-                _validation.postValue(Resource.error(com.play.R.string.empty_password, null));
+                _validation.postValue(Resource.error("Please provide a password.", null));
                 return@launch;
             }
 
